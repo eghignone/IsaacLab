@@ -100,6 +100,7 @@ services:
     # This is the entrypoint for the container
     entrypoint: bash
     stdin_open: true
+    privileged: true
     tty: true
 
   # This service adds a ROS2 Humble
@@ -129,6 +130,33 @@ services:
     # This is the entrypoint for the container
     entrypoint: bash
     stdin_open: true
+    privileged: true
+    tty: true
+
+  # This service adds a Ray installation
+  # installation on top of the base image
+  isaac-lab-ray:
+    profiles: [ "ray" ]
+    env_file:
+      - .env.base
+      - .env.ray
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.ray
+      args:
+        # Make sure that the correct Docker Name Suffix is being passed to the dockerfile, to know which base image to
+        # start from.
+        - DOCKER_NAME_SUFFIX=${DOCKER_NAME_SUFFIX-}
+    image: isaac-lab-ray${DOCKER_NAME_SUFFIX-}
+    container_name: isaac-lab-ray${DOCKER_NAME_SUFFIX-}
+    environment: *default-isaac-lab-environment
+    volumes: *default-isaac-lab-volumes
+    network_mode: host
+    deploy: *default-isaac-lab-deploy
+    # This is the entrypoint for the container
+    entrypoint: bash
+    stdin_open: true
+    privileged: true
     tty: true
 
 volumes:

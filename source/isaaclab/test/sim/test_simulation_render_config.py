@@ -93,10 +93,7 @@ def test_render_cfg():
 def test_render_cfg_presets():
     """Test that the simulation context is created with the correct render cfg preset with overrides."""
 
-    # carb setting dictionary overrides
-    carb_settings = {"/rtx/raytracing/subpixel/mode": 3, "/rtx/pathtracing/maxSamplesPerLaunch": 999999}
-    # user-friendly setting overrides
-    dlss_mode = ("/rtx/post/dlss/execMode", 5)
+        rendering_modes = ["performance", "balanced", "quality"]
 
     rendering_modes = ["performance", "balanced", "quality", "xr"]
 

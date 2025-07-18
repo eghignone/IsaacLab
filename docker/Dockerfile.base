@@ -103,6 +103,9 @@ RUN echo "export ISAACLAB_PATH=${ISAACLAB_PATH}" >> ${HOME}/.bashrc && \
     echo "shopt -s histappend" >> /root/.bashrc && \
     echo "PROMPT_COMMAND='history -a'" >> /root/.bashrc
 
+# install newer torch because RTX 5090 too new
+RUN pip3 install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu129
+
 # make working directory as the Isaac Lab directory
 # this is the default directory when the container is run
 WORKDIR ${ISAACLAB_PATH}
